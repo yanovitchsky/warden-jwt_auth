@@ -48,7 +48,7 @@ module Warden
         raise Errors::NilUser, 'nil user' unless user
 
         strategy = revocation_strategies[scope]
-        raise Errors::RevokedToken, 'revoked token' if strategy.jwt_revoked?(payload, user)
+        raise Errors::RevokedToken, 'revoked token' if Kernel.const_get(strategy).jwt_revoked?(payload, user)
       end
     end
   end
